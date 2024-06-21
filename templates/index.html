@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="mt-5">Sistema de Diagnóstico de Malária</h1>
+    <form method="POST" class="mt-3">
+        <div class="form-group">
+            <label for="paciente">Nome do Paciente:</label>
+            <input type="text" class="form-control" id="paciente" name="paciente" required>
+        </div>
+        <p>Digite os valores para os sintomas do paciente (de 0 a 10):</p>
+        <div class="row">
+          
+        {% for sintoma, valor in sintomas_valores.items() %}
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="{{ sintoma }}">{{ sintoma.replace('_', ' ').title() }}:</label>
+                        <input type="number" class="form-control" id="{{ sintoma }}" name="{{ sintoma }}" min="0" max="10" step="1" required>
+                    </div>
+                </div>
+            
+        {% endfor %}
+    </div>
+        <button type="submit" class="btn btn-primary">Realizar Diagnóstico</button>
+    </form>
+
+    {% if resultado %}
+        <div class="mt-4">
+            <h3>Resultado do Diagnóstico para {{ paciente }}:</h3>
+            <p>O paciente possui: <strong>{{ resultado }}</strong></p>
+        </div>
+    {% endif %}
+{% endblock %}
